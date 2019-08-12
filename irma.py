@@ -50,7 +50,7 @@ def irma():
         # This line gives you an "iterator" you can use to get each line
         # in the file.
         pointreader = csv.reader(csvfile)
-
+        next(pointreader)
         # You'll need to add some code here, before the loop
         # One thing you'll need to figure out how to do is to
         # skip the first line of the file (which is the header).
@@ -60,13 +60,39 @@ def irma():
         # pointreader is an iterator
 
         for row in pointreader:
+            wind = int(row[4])
+            if wind<74 :
+                t.color("white")
+                t.pensize(2)
+            elif wind<96 :
+                t.color("blue")
+                t.pensize(4)
+                t.write("1")
+            elif wind<111 :
+                t.color("green")
+                t.pensize(6)
+                t.write("2")
+            elif wind<130:
+                t.color("yellow")
+                t.pensize(8)
+                t.write("3")
+            elif wind<157:
+                t.color("orange")
+                t.pensize(10)
+                t.write("4")
+            else:
+                t.color("red")
+                t.pensize(12)
+                t.write("5")
+
+            t.setpos(float (row[3]), float (row[2]))
             # row is a list representing each line in the csv file
             # Each comma separated element is in its own index position
             # This code just prints out the date and time elements of each
             # row in the file.
             # Make sure you understand what is happening here.
             # Then, you'll need to change this code
-            print("Date:", row[0], "Time:", row[1])
+            print("Date:", row[0], "Time:", row[1], "Lat:", row[2], "Lon:", row[3], "Wind:", row[4], "Pressure:", row[5])
 
 
 
@@ -80,3 +106,4 @@ def irma():
 
 if __name__ == "__main__":
     bg=irma()
+    turtle.done()
